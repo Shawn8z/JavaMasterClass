@@ -33,17 +33,17 @@ class Monitor extends Product {
     }
 }
 
-class MotherBoard extends Product {
+class Motherboard extends Product {
 
     private int ramSlots;
     private int cardSlots;
     private String bios;
 
-    public MotherBoard(String model, String manufacturer) {
+    public Motherboard(String model, String manufacturer) {
         super(model, manufacturer);
     }
 
-    public MotherBoard(String model, String manufacturer, int ramSlots, int cardSlots, String bios) {
+    public Motherboard(String model, String manufacturer, int ramSlots, int cardSlots, String bios) {
         super(model, manufacturer);
         this.ramSlots = ramSlots;
         this.cardSlots = cardSlots;
@@ -57,7 +57,18 @@ class MotherBoard extends Product {
 
 class ComputerCase extends Product {
 
+    private String powerSupply;
+
     public ComputerCase(String model, String manufacturer) {
         super(model, manufacturer);
+    }
+
+    public ComputerCase(String model, String manufacturer, String powerSupply) {
+        super(model, manufacturer);
+        this.powerSupply = powerSupply;
+    }
+
+    public void pressPowerButton() {
+        System.out.println("Power button pressed");
     }
 }
