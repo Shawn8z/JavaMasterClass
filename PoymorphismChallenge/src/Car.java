@@ -43,66 +43,47 @@ class GasPoweredCar extends Car {
 
 class ElectricCar extends Car {
     private double avgKmPerCharge;
-    private int batterySize;
+    private int batterySize = 6;
 
-    public ElectricCar(String description, int batterySize, double avgKmPerCharge) {
+    public ElectricCar(String description, double avgKmPerCharge, int batterySize) {
         super(description);
-        this.batterySize = batterySize;
         this.avgKmPerCharge = avgKmPerCharge;
+        this.batterySize = batterySize;
     }
 
-//    @Override
-//    public void startEngine() {
-//        System.out.printf("%s turns on its electric motor, it shows there are %d%% percent battery left %n", super.getDescription(), this.batterySize);
-//        this.runEngine();
-//    }
-//
-//    @Override
-//    public void drive(double km) {
-//        super.drive(km);
-//        double usedCharges = km * this.avgKmPerCharge;
-//        if ((usedCharges - this.batterySize) <= 0) {
-//            System.out.println("%s ran out of battery on the way, good luck finding a charger");
-//            this.batterySize = 0;
-//        }
-//        this.batterySize -= usedCharges;
-//        System.out.printf("Used %d charges from the battery", usedCharges);
-//    }
-//
-//    @Override
-//    protected void runEngine() {
-//        System.out.printf("%s's power indicator light is on, but you don't hear a thing %n", super.getDescription());
-//    }
+    @Override
+    public void startEngine() {
+        System.out.printf("BEV -> switch %d kWh battery on, Ready!%n", batterySize);
+    }
+
+    @Override
+    protected void runEngine() {
+        System.out.printf("BEV -> usage under the average: %.2f %n", avgKmPerCharge);
+    }
 }
 
-class HybirdCar extends Car {
+class HybridCar extends Car {
     private double avgKmPerLiter;
+    private int cylinders = 6;
     private int batterySize;
-    private int cylinders;
 
-    public HybirdCar(String description, double avgKmPerLiter, int batterySize, int cylinders) {
+    public HybridCar(String description, double avgKmPerLiter, int cylinders, int batterySize) {
         super(description);
         this.avgKmPerLiter = avgKmPerLiter;
-        this.batterySize = batterySize;
         this.cylinders = cylinders;
+        this.batterySize = batterySize;
     }
 
-//    @Override
-//    public void startEngine() {
-//        super.startEngine();
-//        System.out.printf("%s's all %d cylinders running at full speed vroom %n", super.getDescription(), this.cylinders);
-//        System.out.printf("%s turns on its electric motor, it shows there are %d%% percent battery left %n", super.getDescription(), this.batterySize);
-//    }
-//
-//    @Override
-//    public void drive(double km) {
-//        super.drive(km);
-//    }
-//
-//    @Override
-//    protected void runEngine() {
-//        super.runEngine();
-//    }
+    @Override
+    public void startEngine() {
+        System.out.printf("Hybrid -> %d cylinders are fired up.%n", cylinders);
+        System.out.printf("Hybrid -> switch %d kWh battery on, Ready!%n", batterySize);
+    }
+
+    @Override
+    protected void runEngine() {
+        System.out.printf("Hybrid -> usage below average: %.2f %n", avgKmPerLiter);
+    }
 }
 
 
