@@ -18,23 +18,28 @@ public class Main {
 //        for (int i = len - 1; i >= 0; i--) {
 //            decIntArr[len - 1 - i] = intArr[i];
 //        }
-        System.out.println(Arrays.toString(decIntArr));
+//        System.out.println(Arrays.toString(decIntArr));
 
-        boolean flag = true;
-        int temp;
-        while (flag) {
-            flag = false;
-            for (int i = 0; i < decIntArr.length - 1; i++) {
-                if (decIntArr[i] < decIntArr[i + 1]) {
-                    temp = decIntArr[i];
-                    decIntArr[i] = decIntArr[i + 1];
-                    decIntArr[i + 1] = temp;
-                    flag = true;
-                    System.out.println("------>" + Arrays.toString(decIntArr));
-                }
-            }
-        }
+//        boolean flag = true;
+//        int temp;
+//        while (flag) {
+//            flag = false;
+//            for (int i = 0; i < decIntArr.length - 1; i++) {
+//                if (decIntArr[i] < decIntArr[i + 1]) {
+//                    temp = decIntArr[i];
+//                    decIntArr[i] = decIntArr[i + 1];
+//                    decIntArr[i + 1] = temp;
+//                    flag = true;
+//                    System.out.println("------>" + Arrays.toString(decIntArr));
+//                }
+//            }
+//        }
 
-        System.out.println(Arrays.toString(decIntArr));
+//        System.out.println(Arrays.toString(decIntArr));
+        SortedArray arrGen = new SortedArray();
+//        System.out.println(Arrays.toString(arrGen.getIntegers(10)));
+        int[] newArr = arrGen.getIntegers(5);
+//        arrGen.printArray(newArr);
+//        System.out.println(Arrays.toString(arrGen.sortIntegers(newArr)));
     }
 }
