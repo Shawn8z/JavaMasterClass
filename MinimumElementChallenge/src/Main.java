@@ -19,7 +19,7 @@ public class Main {
         int len = strArr.length;
         int[] numArr = new int[len];
         for (int i = 0; i < len; i++) {
-            numArr[i] = Integer.parseInt(strArr[i]);
+            numArr[i] = Integer.parseInt(strArr[i].trim());
         }
         return numArr;
     }
