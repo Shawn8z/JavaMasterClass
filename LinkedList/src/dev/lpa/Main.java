@@ -86,6 +86,9 @@ public class Main {
     public static void printItinerary(LinkedList<String> list) {
 
         System.out.println("Trip starts at " + list.getFirst());
+        for (int i = 1; i < list.size(); i++) {
+            System.out.println("--> From: " + list.get(i - 1) + " to " + list.get(i));
+        }
         System.out.println("Tripe ends at " + list.getLast());
     }
 }
