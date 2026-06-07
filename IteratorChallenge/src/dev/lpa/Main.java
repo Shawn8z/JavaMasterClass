@@ -1,7 +1,6 @@
 package dev.lpa;
 
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Main {
 
@@ -19,15 +18,58 @@ public class Main {
         Town[] townArray = {Sydney, Adelaide, AliceSprings, Brisbane, Darwin, Melbourne, Perth};
 
         LinkedList<Town> townsList = new LinkedList<>(Arrays.asList(townArray));
+        Town.sortTownByDistance(townsList);
 
-        Town.sortTowns(townsList);
+        Scanner scanner = new Scanner(System.in);
 
-//        townsList.sort(Comparator.comparing(Town::getDistance));
-//        System.out.println(townsList);
+        System.out.print("""
+                       Available actions (select word or letter):
+                       (F)orward
+                       (B)ackward
+                       (L)ist Places
+                       (M)enu
+                       (Q)uit
+                    """);
+        System.out.println("-".repeat(50));
+
+
+        ListIterator<Town> townIterator = townsList.listIterator(1);
+        boolean keepGoing = true;
+        while (keepGoing) {
+            String input = scanner.nextLine();
+            switch (input) {
+                case "F" -> {
+                    if (!townIterator.hasNext()) {
+                        System.out.println("Can't move any further, you are at the end");
+                        break;
+                    }
+                    Town town = townIterator.next();
+                    System.out.println("Moved forward to " + town);
+                }
+                case "B" -> {
+                    if (!townIterator.hasPrevious()) {
+                        System.out.println("Can't move back any further, you are at the start");
+                        break;
+                    }
+                    Town town = townIterator.previous();
+                    System.out.println("Moved Backwards to " + town);
+                }
+                case "L" -> {
+                    System.out.println("Null");
+                }
+                case "M" -> {
+
+                }
+                case "Q" -> {
+                    keepGoing = false;
+                    scanner.close();
+                }
+            }
+        }
+
+
+
     }
-
-
-
 
 }
 
@@ -53,12 +95,21 @@ class Town {
         return name +  " (" + distanceFromSydney + ")";
     }
 
-    public static LinkedList<Town> sortTowns(LinkedList<Town> list) {
-        var iterator = list.listIterator(1);
-        while (iterator.hasNext()) {
 
-
+    public static void move(String str, LinkedList<Town> list) {
+        ListIterator<Town> townIterator = list.listIterator();
+        if (str.equals("F")) {
+            townIterator.next();
+            System.out.println(townIterator);
         }
-        return list;
+        if (str.equals("B")) {
+            townIterator.previous();
+            System.out.println(townIterator);
+        }
     }
+
+    public static void sortTownByDistance(LinkedList<Town> townsList) {
+        townsList.sort(Comparator.comparing(Town::getDistance));
+    }
+
 }
