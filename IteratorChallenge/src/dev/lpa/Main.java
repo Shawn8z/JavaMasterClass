@@ -55,12 +55,25 @@ public class Main {
                     System.out.println("Moved Backwards to " + town);
                 }
                 case "L" -> {
-                    System.out.println("Null");
+                    System.out.println("-".repeat(50));
+                    while (townIterator.hasNext()) {
+                        Town town = townIterator.next();
+                        System.out.println("Town: " + town.getName());
+                        System.out.println( "Distance from Sydney: " + town.getDistance());
+                        System.out.println("-".repeat(50));
+                    }
                 }
                 case "M" -> {
-
+                    System.out.println("""
+                       (F)orward
+                       (B)ackward
+                       (L)ist Places
+                       (M)enu
+                       (Q)uit
+                    """);
                 }
                 case "Q" -> {
+                    System.out.println("Session Ending...");
                     keepGoing = false;
                     scanner.close();
                 }
