@@ -37,10 +37,49 @@ public class Main {
         printMenu();
 
         while(!quitLoop) {
-            System.out.println("Enter Value: ");
+            if (!iterator.hasPrevious()) {
+                System.out.println("Originating : " + iterator.next());
+                forward = true;
+            }
+            if (!iterator.hasNext()) {
+                System.out.println("Final : " + iterator.previous());
+                forward = false;
+            }
+
+            System.out.print("Enter Value: ");
             String menuItem = scanner.nextLine().toUpperCase().substring(0, 1);
 
             switch (menuItem) {
+                case "F":
+                    System.out.println("User wants to go forward");
+                    if (!forward) {
+                        forward = true;
+                        if (iterator.hasNext()) {
+                            iterator.next();
+                        }
+                    }
+                    if (iterator.hasNext()) {
+                        System.out.println(iterator.next());
+                    }
+                    break;
+                case "B":
+                    if (forward) {
+                        forward = false;
+                        if (iterator.hasPrevious()) {
+                            iterator.previous();
+                        }
+                    }
+                    System.out.println("User wants to go backward");
+                    if (iterator.hasPrevious()) {
+                        System.out.println(iterator.previous());
+                    }
+                    break;
+                case "M":
+                    printMenu();
+                    break;
+                case "L":
+                    System.out.println(placesToVisit);
+                    break;
                 default:
                     quitLoop = true;
                     break;
@@ -55,7 +94,7 @@ public class Main {
         }
 
         for (Place p : list) {
-            if (p.name(). equalsIgnoreCase(place.name())) {
+            if (p.name().equalsIgnoreCase(place.name())) {
                 System.out.println("Found duplicate: " + place);
             }
         }
@@ -66,6 +105,7 @@ public class Main {
                 list.add(matchedIndex, place);
                 return;
             }
+            matchedIndex++;
         }
         list.add(place);
     }
