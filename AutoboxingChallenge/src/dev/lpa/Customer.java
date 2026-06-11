@@ -28,7 +28,7 @@ public class Customer {
     public String toString() {
         String firstLine = "Customer name: " + this.name + "%n";
         String transactionsLine = "All transactions:%n";
-        for (Double item : transactions) {
+        for (double item : transactions) {
             String newStr = (item > 0) ? "credit amount: " + item + "%n" : "debit amount: " + item + "%n";
             transactionsLine += newStr;
 
