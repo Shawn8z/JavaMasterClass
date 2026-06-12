@@ -5,7 +5,22 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
+        Bank bank = new Bank("National Australia Bank");
 
+        boolean addResult = bank.addBranch("Adelaide");
+        System.out.println(addResult);
+        System.out.println(bank.getBranches());
+
+        bank.addCustomer("Adelaide", "Tim", 50.05);
+        bank.addCustomer("Adelaide", "Mike", 175.34);
+        bank.addCustomer("Adelaide", "Percy", 220.12);
+
+        bank.addCustomerTransaction("Adelaide", "Tim", 44.22);
+        bank.addCustomerTransaction("Adelaide", "Tim", 12.44);
+        bank.addCustomerTransaction("Adelaide", "Mike", 1.65);
+        System.out.println(bank.getBranches());
+
+        bank.listCustomers("Adelaide", true);
     }
 }
 
@@ -19,18 +34,25 @@ class Bank {
         this.branches = new ArrayList<>();
     }
 
-    public Branch findBranch (String name) {
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Branch> getBranches() {
+        return branches;
+    }
+
+    private Branch findBranch (String name) {
         for (Branch item : branches) {
             if (item.getName().equals(name)) {
                 return item;
             }
         }
-        System.out.println("Branch not found");
         return null;
     }
 
     public boolean addBranch (String branchName) {
-        boolean hasMatchingBranch = findBranch(branchName) == null;
+        boolean hasMatchingBranch = findBranch(branchName) != null;
         if (hasMatchingBranch) {
             System.out.println("Branch already exists");
             return false;
@@ -47,16 +69,46 @@ class Bank {
             System.out.println("Branch (" + branchName + ") not found");
             return false;
         }
-        Customer targetCus = targetBranch.findCustomer(customerName);
-        boolean customerExists = targetCus != null;
-        if (customerExists) {
-            System.out.println("Customer (" + customerName + ") already exists");
-            return false;
-        }
         return targetBranch.newCustomer(customerName, transaction);
     }
 
+    public boolean addCustomerTransaction(String branch, String cusName, double transaction) {
+        Branch targetBranch = findBranch(branch);
+        boolean branchMissing = targetBranch == null;
+        if (branchMissing) {
+            System.out.println("Branch (" + branch + ") not found");
+            return false;
+        }
+        return targetBranch.addCustomerTransaction(cusName, transaction);
+    }
 
+    public boolean listCustomers(String branchName, boolean printTransaction) {
+        System.out.println(branchName);
+        Branch targetBranch = findBranch(branchName);
+        if (targetBranch == null) {
+            System.out.println("Branch (" + branchName + ") not found");
+            return false;
+        }
+
+        ArrayList<Customer> customers = targetBranch.getCustomers();
+        System.out.println("Customer details for branch " + targetBranch.getName());
+        for (int i = 0; i < customers.size(); i++) {
+            Customer cus = customers.get(i);
+            System.out.printf("Customer: %s[%d]%n", cus.getName(), i + 1);
+
+            if (printTransaction) {
+                System.out.println("Transactions");
+
+                ArrayList<Double> transactions = cus.getTransactions();
+                for (int j = 0; j < transactions.size(); j++) {
+                    double amount = transactions.get(j);
+                    System.out.printf("[%d] Amount %.2f%n", j + 1, amount);
+                }
+            }
+        }
+
+        return true;
+    }
 }
 
 class Branch {
@@ -77,13 +129,13 @@ class Branch {
         return this.customers;
     }
 
-    public Customer findCustomer(String CustomerName) {
+    private Customer findCustomer(String CustomerName) {
         for (Customer item : customers) {
             if (item.getName().equals(CustomerName)) {
                 return item;
             }
         }
-        System.out.println("Customer not found");
+//        System.out.println("Customer not found");
         return null;
     }
 
@@ -109,6 +161,11 @@ class Branch {
         cus.addTransaction(transaction);
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Branch name [" + name + "]" + ", Customers: " + customers;
+    }
 }
 
 class Customer {
@@ -131,5 +188,10 @@ class Customer {
 
     public void addTransaction(double amount) {
         this.transactions.add(amount);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer name [" + name + "]" + ", Transactions: " + transactions;
     }
 }
