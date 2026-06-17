@@ -30,11 +30,11 @@ public class Store {
     }
 
     private static void printOrder() {
-        System.out.println("-".repeat(30));
+        System.out.println("-".repeat(40));
         for (OrderItem item : order) {
             int itemCount = item.getQuantity();
             item.getProduct().printPricedItem(itemCount);
-            System.out.println("-".repeat(30));
+            System.out.println("-".repeat(40));
         }
     }
 
